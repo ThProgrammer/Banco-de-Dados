@@ -44,6 +44,8 @@ select supplierID, count(ProductID)
 from products
 group by SupplierID;
 
+#Aula
+
 select orderID,
 		productID,
         quantity,
@@ -68,7 +70,87 @@ from orders inner join order_details
 from orders inner join order_details
 	on orders.OrderID=order_details.OrderID
     group by orders.CustomerID;
-
+    
+    
+    select categories.CategoryID as codCat,
+			categories.CategoryName as NomeCategoria,
+            products.ProductID as CodProd,
+            products.ProductName as NomeProd,
+            products.UnitPrice as PrecoProd,
+			suppliers.CompanyName as NomeCompania
+            from products inner join categories
+            on products.CategoryID=categories.CategoryID
+            inner join suppliers
+            on suppliers.SupplierID= products.SupplierID;
+            
+	#Exercicio1
+	
+    select orders.CustomerID,
+			customers.ContactName,
+            orders.OrderID,
+            orders.OrderDate,
+            orders.ShipVia
+            from orders inner join customers
+            on orders.CustomerID=customers.CustomerID;
+            
+	#Exercicio2
+    
+    select suppliers.SupplierID,
+			suppliers.CompanyName,
+            suppliers.ContactName,
+            products.ProductID,
+            products.ProductName,
+            products.UnitPrice,
+            products.UnitsInStock
+            from suppliers inner join products
+            on suppliers.SupplierID=products.SupplierID
+            order by products.UnitPrice;
+    
+	
+    #Exercicio3
+    
+    select employees.employeeid,
+			employees.FirstName,
+            orders.OrderID,
+            sum(order_details.unitprice*order_details.Quantity) as ValorPedido,
+            count(order_details.OrderID) as quantidadeDeItens,
+            orders.orderDate
+            from employees inner join orders
+            on employees.EmployeeID=orders.EmployeeID
+            inner join order_details
+            on orders.OrderID=order_details.OrderID
+            group by employees.employeeid,
+					employees.FirstName,
+					orders.OrderID,
+                    orders.orderDate;
+                    
+                    
+	#Aula
+    
+    select customers.CustomerID,
+    orders.OrderID,
+    orders.OrderDate from customers left outer join orders
+    on customers.customerID=orders.customerID;
+    
+      select customers.CustomerID,
+    orders.OrderID,
+    orders.OrderDate from orders right outer join customers
+    on customers.customerID=orders.customerID;
+    
+    
+    #Exercicio 4
+    
+    select products.ProductID,
+    products.ProductName,
+    order_details.OrderID
+    from products left outer join order_details
+    on products.ProductID=order_details.ProductID
+    where order_details.OrderID is null;
+            
+    
+            
+      
+    
 
 
 
