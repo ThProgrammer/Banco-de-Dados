@@ -146,6 +146,18 @@ from orders inner join order_details
     from products left outer join order_details
     on products.ProductID=order_details.ProductID
     where order_details.OrderID is null;
+    
+    select ct.CustomerId,  ct.ContactName, od.OrderID, od.Orderdate
+    from customers as ct left outer join orders as od
+    on ct.CustomerID = od.CustomerID
+    where od.OrderID is null
+    
+    union
+    
+    select ct.ContainerID = od.customerID, ct.ContactName, od.OrderID, od.OrderDate
+    from customers as ct right outer join orders as od 
+    on ct.CustomerID = od.customerID
+    where ct.CustomerID is null;
             
     
             
